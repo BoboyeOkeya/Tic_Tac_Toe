@@ -12,3 +12,4 @@ int get_index(int user_input);
 std::string get_outcome(std::vector<char>* board, bool* game_end, int* game_turn);
 void play(std::string user, std::vector<char>* board, std::vector<bool>* flags);
 bool validate_input(char user_input);
+void trim_input();

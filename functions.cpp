@@ -75,7 +75,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
       (*flags)[0] = true;
       updated = true;
       }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'b'){
@@ -84,7 +84,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
       (*flags)[1] = true;
       updated = true;
       }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'c'){
@@ -93,7 +93,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[2] = true;
       updated = true;
     }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'd'){
@@ -102,7 +102,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[3] = true;
       updated = true;
     }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'e'){
@@ -111,7 +111,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[4] = true;
       updated = true;
     }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'f'){
@@ -120,7 +120,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[5] = true;
       updated = true;
     }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'g'){
@@ -129,7 +129,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[6] = true;
       updated = true;
     }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'h'){
@@ -138,7 +138,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[7] = true;
       updated = true;
     }
-    else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+    else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   else if(grd_pos == 'i'){
@@ -147,7 +147,7 @@ bool update_board(char grd_pos, char value, std::vector<char>* grid, std::vector
     (*flags)[8] = true;
       updated = true;
     }
-  else std::cout<<"Position "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
+  else std::cout<<"\nPosition "<<grd_pos<<" is filled up\n"<<"Please choose another position\n";
   }
 
   return updated;
@@ -240,9 +240,27 @@ return outcome;
 
 }
 
+  /*
+  Trim input stream: remove multiple input values and only select the first character
+  */
+  void trim_input(){
+      if(std::cin.fail() || std::cin.peek() !='\n'){
+    std::cout<<"\nMultiple Characters detected....\nChoosing only the first character.\n";
+    std::cin.clear();
+    std::cin.ignore(1000,'\n');
+  }
+  }
 
-  //validate the user input
+  /*
+  Validate the user input by trimming the input stream;
+  checks if the user's input is among the expected set of inputs
+  Input: The user's input character
+  Output: Boolean variable indicating whether an the user's input is valid or not
+  */
   bool validate_input(char user_input){
+
+// Trims the iuser's input by removing multiple characters
+  trim_input();
   std::vector<char> inputs = {'a','b','c','d','e','f','g','h','i'};
   bool valid;
   //check if the user's input is one of the expected inputs
@@ -254,17 +272,14 @@ return outcome;
     else valid = false;
   }
 
-  // //check if the user's input is a string
-  // std::string user_test = (std::string) user_input;
-  // if(user_test.size()>1) valid = false;
-
   return valid;
   } 
 
 
+
+
 /*
 This plays the each turn of the game for each user (User1 and User2)
-
 */
 
 void play(std::string user, std::vector<char>* board, std::vector<bool>* flags){
@@ -275,7 +290,7 @@ void play(std::string user, std::vector<char>* board, std::vector<bool>* flags){
   char user_input;
   std::cin>>user_input;
 
-  //validate the user input
+  //Validate the user input
   bool valid = validate_input(user_input);
 
   //while the user's input is invalid, keep prompting the user to input the right letter
@@ -284,7 +299,6 @@ void play(std::string user, std::vector<char>* board, std::vector<bool>* flags){
     std::cout<<"Please enter a lower case character between letter 'a' to letter 'i': ";
   std::cin>>user_input;
   valid = validate_input(user_input);
-
   }
   
 
@@ -306,6 +320,15 @@ void play(std::string user, std::vector<char>* board, std::vector<bool>* flags){
     while((*flags)[idx] == true){
       std::cout<<user<<": ";
       std::cin>>user_input;
+      valid = validate_input(user_input);
+      //while the user's input is invalid, keep prompting the user to input the right letter
+      while(valid==false){
+        std::cout<<"\nYou entered an invalid value\n";
+        std::cout<<"Please enter a lower case character between letter 'a' to letter 'i': ";
+        std::cin>>user_input;
+        valid = validate_input(user_input);
+      }
+  
       idx = get_index(user_input);
       updated = update_board(user_input,value,board,flags);
       if(updated) break;
